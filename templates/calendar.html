@@ -1,0 +1,8 @@
+{% extends "app_base.html" %}
+{% block title %}Calendar · REYMINDER{% endblock %}
+{% block app_content %}
+<section class="page-intro"><div><span class="eyebrow">PLAN WITH A LITTLE MORE CLARITY</span><h1>Your calendar</h1><p class="muted">See your reminders by date and make space for what matters.</p></div><a class="button button-primary" href="{{ url_for('new_reminder') }}">＋ Add reminder</a></section>
+<section class="panel calendar-page-panel"><div class="panel-heading"><div><span class="eyebrow">YOUR SCHEDULE</span><h2 id="calendar-month">Month Year</h2></div><div class="calendar-controls"><button class="icon-button" id="prev-month" type="button" aria-label="Previous month">‹</button><button class="icon-button" id="today-month" type="button">Today</button><button class="icon-button" id="next-month" type="button" aria-label="Next month">›</button></div></div><div class="calendar-grid calendar-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar-grid calendar-page-days" id="calendar-days"></div><div class="calendar-legend"><span class="legend-dot"></span> Today <span class="legend-dot legend-reminder"></span> Scheduled reminder</div></section>
+<section class="panel selected-day-panel"><div class="panel-heading"><div><span class="eyebrow">SELECTED DATE</span><h2 id="selected-date-label">Choose a day</h2></div></div><div id="selected-date-items" class="selected-date-items muted">Select a date on the calendar to see what's scheduled.</div></section>
+<script id="reminder-data" type="application/json">{{ reminders|tojson }}</script>
+{% endblock %}

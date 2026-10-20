@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-mark">R</span><span>REY<span class="brand-light">MINDER</span></span></a>
+    <div class="sidebar-label">YOUR WORKSPACE</div>
+    <a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}"><span>⌂</span> Overview</a>
+    <a class="nav-link {% if request.endpoint == 'calendar' %}active{% endif %}" href="{{ url_for('calendar') }}"><span>▦</span> Calendar</a>
+    <a class="nav-link {% if request.endpoint in ['reminders_page','new_reminder'] %}active{% endif %}" href="{{ url_for('reminders_page') }}"><span>☷</span> My reminders</a>
+    <a class="nav-link {% if request.endpoint == 'checklist' %}active{% endif %}" href="{{ url_for('checklist') }}"><span>✓</span> Going-out checklist</a>
+    <div class="sidebar-label sidebar-label-lower">ACCOUNT</div>
+    <a class="nav-link {% if request.endpoint == 'notifications' %}active{% endif %}" href="{{ url_for('notifications') }}"><span>♧</span> Notifications {% if notification_count %}<span class="nav-count">{{ notification_count }}</span>{% endif %}</a>
+    <a class="nav-link {% if request.endpoint == 'profile' %}active{% endif %}" href="{{ url_for('profile') }}"><span>◉</span> Profile settings</a>
+    <div class="sidebar-bottom">
+      <a class="nav-link" href="{{ url_for('privacy') }}"><span>⌑</span> Privacy & safety</a>
+      <div class="sidebar-user"><div class="avatar">{{ session.get('user_name','U')[0]|upper }}</div><div class="profile-info"><strong>{{ session.get('user_name','User') }}</strong><small>Personal account</small></div><form method="post" action="{{ url_for('logout') }}"><button class="icon-button" title="Log out" aria-label="Log out">↗</button></form></div>
+    </div>
+  </aside>
+  <main class="main-content">
+    <header class="topbar app-topbar">
+      <div class="mobile-brand"><span class="brand-mark">R</span> REYMINDER</div>
+      <div class="topbar-heading"><span class="eyebrow">YOUR PERSONAL SPACE</span><p class="topbar-date">{{ current_date }}</p></div>
+      <div class="top-actions">
+        <div class="notification-wrap">
+          <a class="top-icon-button notification-button" href="{{ url_for('notifications') }}" aria-label="Notifications" title="Notifications"><span>♧</span>{% if notification_count %}<i>{{ notification_count }}</i>{% endif %}</a>
+          <div class="notification-popover"><strong>Notifications</strong>{% if top_notifications %}{% for note in top_notifications[:3] %}<a href="{{ url_for('notifications') }}"><span class="notification-dot {{ note.kind }}"></span><span><b>{{ note.title }}</b><small>{{ note.detail }}</small></span></a>{% endfor %}<a class="notification-all" href="{{ url_for('notifications') }}">View all notifications →</a>{% else %}<p class="muted small-text">You're all caught up. No reminders due soon.</p>{% endif %}</div>
+        </div>
+        <button class="top-icon-button" type="button" data-theme-toggle aria-label="Toggle color theme" title="Switch theme"><span data-theme-icon>☾</span></button>
+        <a class="top-profile" href="{{ url_for('profile') }}" title="Open profile"><span class="avatar">{{ session.get('user_name','U')[0]|upper }}</span><span class="top-profile-name">{{ session.get('user_name','User').split(' ')[0] }}</span><span>⌄</span></a>
+      </div>
+    </header>
+    {% block app_content %}{% endblock %}
+  </main>
+</div>
+{% endblock %}

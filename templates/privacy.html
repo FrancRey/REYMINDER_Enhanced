@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Privacy Policy · REYMINDER{% endblock %}
+{% block body %}
+<main class="privacy-page">
+  <a class="brand" href="{{ url_for('dashboard') if session.get('user_id') else url_for('login') }}"><span class="brand-mark">R</span><span>REY<span class="brand-light">MINDER</span></span></a>
+  <span class="eyebrow">YOUR INFORMATION MATTERS</span><h1>Privacy Policy</h1>
+  <p class="muted">Last updated: October 2026</p>
+  <article class="privacy-copy">
+    <h2>Information we collect</h2><p>This educational prototype stores the name and email address you submit when creating an account, a password hash, and reminders you create (including titles, notes, categories, dates, and completion status).</p>
+    <h2>How information is used</h2><p>Information is used to authenticate your account and display and manage your reminders. Passwords are stored as hashes rather than plain text. This local prototype does not send reminders or account information to an email service.</p>
+    <h2>Storage and sharing</h2><p>For the local prototype, data is stored in a SQLite database file on the computer running the app. It is not designed for sensitive information. Do not enter confidential, medical, financial, or other sensitive personal data.</p>
+    <h2>Retention and deletion</h2><p>In this prototype, reminders can be deleted through the dashboard. Account deletion is not yet available in the interface; for a test installation, stop the application and remove the local database file to clear its stored data.</p>
+    <h2>Security and limitations</h2><p>This is a student learning project, not a production service. Security measures are limited, and no website can guarantee absolute security. Do not deploy this version publicly with real personal data.</p>
+    <h2>Contact</h2><p>For a class demonstration, contact the student developer through the contact details provided by the course instructor. Replace this text with an appropriate contact method before public deployment.</p>
+  </article>
+  <a class="button button-primary" href="{{ url_for('dashboard') if session.get('user_id') else url_for('login') }}">Back to REYMINDER</a>
+</main>
+{% endblock %}
